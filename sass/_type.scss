@@ -14,15 +14,21 @@
   }
 }
 
+@include en-font;
+@include es-font;
 
-
+/*=====================================================
+ 
+    General Defaults
+  
+  ======================================================*/
 
 body {
 	font-weight: 300;
 	font-family: $sans;
-	// text-rendering:  optimizeLegibility // Use with caution. May break certain @font-face fonts.
+	text-rendering:  optimizeLegibility 
+  // Use with caution. May break certain @font-face fonts.
 }
-
 
 a,
 button,
@@ -43,8 +49,12 @@ textarea:focus {
 }
 
 
+/*=====================================================
+ 
+    Heading Styles
+  
+  ======================================================*/
 
-// Heading Styles
 
 h1,h2,h3,h4,h5,h6 {
   color: $heading-color;
@@ -235,7 +245,11 @@ h1 small, h2 small, h3 small, h4 small, h5 small {
   color: #777;
 }
 
-/*  Blockquotes  */
+/*=====================================================
+
+  Blockquotes, HR's and abbr
+  
+ ======================================================*/
 
 blockquote {
 

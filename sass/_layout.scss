@@ -46,27 +46,65 @@ body {
 	background: $body-bg-color;
 }
 
-// Setup Responsive widths and the number of columns in SUSY
-.site-container {
-	background: $site-container-bg-color;
-	// @extend %wrap;
+// Setup Responsive widths and the number of columns in SUSY for boxed layout
+// Switch layouts in inlcudes/layouts.php
+.design-boxed {
 	
-	@include container;
-	//padding: 0;										//removes the gutter width padding at the edge of the container
-	//@include susy-grid-background; 					//uncomment to see grid for mobile
-	
-	@include breakpoint($mama-bear-and-up) {
-		$total-columns: $mama-bear-total-cols;
-		@include set-container-width($mama-bear-total-cols);
-		//@include susy-grid-background; 					//uncomment to see grid for Mama Bear
+	.site-container {
+		background: $site-container-bg-color;
+		// @extend %wrap;
+		
+		@include container;
+		//padding: 0;										//removes the gutter width padding at the edge of the container
+		//@include susy-grid-background; 					//uncomment to see grid for mobile
+		
+		@include breakpoint($mama-bear-and-up) {
+			$total-columns: $mama-bear-total-cols;
+			@include set-container-width($mama-bear-total-cols);
+			//@include susy-grid-background; 					//uncomment to see grid for Mama Bear
+		}
+		
+		@include breakpoint($papa-bear) {
+			$total-columns: $papa-bear-total-cols;
+			@include set-container-width($papa-bear-total-cols);
+			//@include susy-grid-background; 					//uncomment to see grid for Papa Bear
+		}
 	}
+
+}
+
+// Setup Responsive widths and the number of columns in SUSY for full-width layout
+// Switch layouts in inlcudes/layouts.php
+.design-fullwidth {
+
+	.site-header .wrap,
+	.nav-primary .wrap,
+	.nav-secondary .wrap,
+	.site-inner,
+	.footer-widgets .wrap,
+	.site-footer .wrap {
+		background: $site-container-bg-color;
+		// @extend %wrap;
+		
+		@include container;
+		//padding: 0;										//removes the gutter width padding at the edge of the container
+		//@include susy-grid-background; 					//uncomment to see grid for mobile
+		
+		@include breakpoint($mama-bear-and-up) {
+			$total-columns: $mama-bear-total-cols;
+			@include set-container-width($mama-bear-total-cols);
+			//@include susy-grid-background; 					//uncomment to see grid for Mama Bear
+		}
+		
+		@include breakpoint($papa-bear) {
+			$total-columns: $papa-bear-total-cols;
+			@include set-container-width($papa-bear-total-cols);
+			//@include susy-grid-background; 					//uncomment to see grid for Papa Bear
+		}
 	
-	@include breakpoint($papa-bear) {
-		$total-columns: $papa-bear-total-cols;
-		@include set-container-width($papa-bear-total-cols);
-		//@include susy-grid-background; 					//uncomment to see grid for Papa Bear
 	}
 }
+
 
 .site-inner {
 	background: $site-inner-bg-color;

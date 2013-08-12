@@ -76,6 +76,27 @@ function torlesse_hidden_meta_boxes( $hidden ) {
 
 }
 
+// add_action( 'admin_footer-post-new.php', 'torlesse_media_manager_default_view' );
+// add_action( 'admin_footer-post.php', 'torlesse_media_manager_default_view' );
+/**
+ * Change the media manager default view to 'upload', instead of 'library'
+ *
+ * See: http://wordpress.stackexchange.com/questions/96513/how-to-make-upload-filesselected-by-default-in-insert-media
+ *
+ * @since 2.0.11
+ */
+function torlesse_media_manager_default_view() {
+
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            wp.media.controller.Library.prototype.defaults.contentUserSetting=false;
+        });
+    </script>
+    <?php
+
+}
+
 /**
  * Add a stylesheet for TinyMCE
  *
@@ -128,11 +149,25 @@ function torlesse_user_contactmethods( $fields ) {
 function torlesse_remove_dashboard_menus() {
 
 	global $menu;
-    $restricted = array(__('Dashboard'), __('Posts'), __('Media'), __('Links'), __('Pages'), __('Appearance'), __('Tools'), __('Users'), __('Settings'), __('Comments'), __('Plugins'));
-    end ($menu);
-    while (prev($menu)){
-        $value = explode(' ',$menu[key($menu)][0]);
-        if(in_array($value[0] != NULL?$value[0]:"" , $restricted)){unset($menu[key($menu)]);}
+    $restricted = array(
+    	__('Dashboard'),
+    	__('Posts'),
+    	__('Media'),
+    	__('Links'),
+    	__('Pages'),
+    	__('Comments'),
+    	__('Appearance'),
+    	__('Plugins'),
+    	__('Users'),
+    	__('Tools'),
+    	__('Settings')
+    );
+    end($menu);
+    while( prev($menu) ) {
+        $value = explode( ' ', $menu[key($menu)][0] );
+        if( in_array($value[0] != NULL ? $value[0] : "" , $restricted) ) {
+	        unset( $menu[key($menu)] );
+        }
     }
 
 }

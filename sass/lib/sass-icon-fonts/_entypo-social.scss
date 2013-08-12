@@ -11,7 +11,7 @@
 
 $es-native-size: 40px;
 
-$es-path: "../fonts/entypo-social/entypo-social" !default;
+$es-path: "entypo-social" !default;
 
 @mixin es-font {
   @font-face {

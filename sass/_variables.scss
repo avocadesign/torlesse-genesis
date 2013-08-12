@@ -1,5 +1,6 @@
 @import "modular-scale";
 
+
 /*********************
 BREAKPOINTS
 
@@ -81,6 +82,11 @@ $flickr:			#ff0084;
 $instagram:			#517fa4;
 $vimeo:				#aad450;
 $foursquare: 		#0072b1;
+
+// Icon font path
+$en-path: "../fonts/entypo/entypo";
+$es-path: "../fonts/entypo/entypo-social";
+$fa-path: "../fonts/font-awesome/fontawesome-webfont";
 
 // Font Weights
 $font-weight-bold: 700;

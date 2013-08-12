@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit( 'Cheatin&#8217; uh?' );
  *
  * @since 2.0.0
  */
-add_theme_support( 'genesis-html5' );
 add_theme_support( 'html5' );
 
 /**
@@ -31,23 +30,50 @@ add_theme_support( 'genesis-responsive-viewport' );
 // add_theme_support( 'custom-background' );
 
 /**
+ * Add support for a custom header
+ *
+ * @since 2.0.9
+ */
+// add_theme_support( 'genesis-custom-header', array( 'width' => 960, 'height' => 100 ) );
+
+/**
+ * Add Genesis post format support
+ *
+ * @since 2.0.9
+ */
+// add_theme_support( 'post-formats', array(
+// 	'aside',
+// 	'chat',
+// 	'gallery',
+// 	'image',
+// 	'link',
+// 	'quote',
+// 	'status',
+// 	'video',
+// 	'audio'
+// ));
+// add_theme_support( 'genesis-post-format-images' );
+
+/**
+ * Add Genesis theme color scheme selection theme option
+ *
+ * @since 2.0.11
+ */
+add_theme_support(
+ 	'genesis-style-selector',
+ 	array(
+ 		'bfg-red'   => 'Red',
+ 		'bfg-orange'  => 'Orange'
+ 	)
+ );
+
+/**
  * Add Genesis footer widget areas
  *
  * @since 2.0.1
  */
 add_theme_support( 'genesis-footer-widgets', 3 );   							//SASS support for the number of footer widgets is set in _footer.scss using the $genesis-footer-areas variable
 
-//* Add support for structural wraps
-/*
-add_theme_support( 'genesis-structural-wraps', array(
-	'header',
-	'nav',
-	'subnav',
-	'inner',
-	'footer-widgets',
-	'footer'
-) );
-*/
 
 /**
  * Declare WooCommerce support, using Genesis Connect for WooCommerce
@@ -78,6 +104,20 @@ add_theme_support( 'genesis-structural-wraps', array(
 // unregister_sidebar( 'header-right' );
 // unregister_sidebar( 'sidebar-alt' );
 // unregister_sidebar( 'sidebar' );
+
+/**
+ * Register home page widget area
+ *
+ * Used in page_home.php and frontpage (overrides the list of posts if there are widgets there)
+ *
+ * @since 2.0.1
+ */
+genesis_register_sidebar( array(
+	'id'			=> 'homepage-widgets',
+	'name'			=> __( 'Homepage', 'torlesse' ),
+	'description'	=> __( 'Homepage widget area: displays on frontpage and on the homepage page template', 'torlesse' ),
+) );
+
 
 // add_action( 'widgets_init', 'torlesse_remove_genesis_widgets', 20 );
 /**

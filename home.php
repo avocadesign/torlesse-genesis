@@ -1,8 +1,4 @@
 <?php
-/*
-	Template Name: Home Page - Widgets
-*/
-
 /** Exit if accessed directly */
 if ( ! defined( 'ABSPATH' ) ) exit( 'Cheatin&#8217; uh?' );
 
@@ -28,7 +24,7 @@ if ( is_active_sidebar( 'homepage-widgets' )) {
 
 	remove_action( 'genesis_loop', 'genesis_do_loop' );
 	add_action( 'genesis_loop', 'torlesse_home_loop_helper' );
-	
+
 }
 	
 
@@ -43,7 +39,7 @@ function torlesse_home_loop_helper() {
 		'before' => '<div class="slider-wide"><div class="wrap">',
 		'after' => '</div></div>',
 	) );
-
+		
 }
 
 /**

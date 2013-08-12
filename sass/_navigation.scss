@@ -3,6 +3,13 @@
 	background: $nav-primary-bg-colour;
 }
 
+.design-fullwidth {
+	
+	.nav-primary .wrap {
+		background: $nav-primary-bg-colour;
+	}
+}
+
 .genesis-nav-menu {
 	clear: both;
 	margin: 0;
@@ -76,16 +83,17 @@
 	}
 	
 	.menu-parent-item > a {
-	
-		@include en-icon(triangle-down, $top: 2px);
+		
+		@include en-icon(chevron-down, 2rem, $top: -$base-font-size*0.4);
 
 		&:before {
 			float: right;
 			padding-left: 10px;
+			height: $base-font-size;
 		}
 		
 		a {
-			@include en-icon(triangle-down, $top: 2px);
+			@include en-icon(chevron-down, 2rem, $top: -$base-font-size*0.4);
 		}
 		
 		@include breakpoint($brother-bear) {
@@ -96,7 +104,8 @@
 	}
 	
 	.sub-menu .menu-parent-item > a {
-		@include en-icon(triangle-right, $top: 2px);
+		
+		@include en-icon(chevron-right, 2rem, $top: -$base-font-size*0.4);
 	}
 	
 	.sub-menu {

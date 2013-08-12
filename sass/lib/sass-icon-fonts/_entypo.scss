@@ -11,7 +11,7 @@
 
 $en-native-size: 40px;
 
-$en-path: "../fonts/entypo/entypo" !default;
+$en-path: "entypo" !default;
 
 @mixin en-font {
   @font-face {
@@ -68,17 +68,39 @@ $en-path: "../fonts/entypo/entypo" !default;
 
 %en-icon {
   &:before {
-    line-height: 1em;
+  	position: relative;
+  	display: block;
+  	//width: $size;
+    line-height: normal;
     font-family: "entypo";
     font-weight: normal;
     font-style: normal;
-    display: inline-block;
     text-decoration: none;
     vertical-align: middle;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
   }
 }
+   /*
+ width: $width;
+    height: $height;
+    line-height: $width;
+    vertical-align: -35%;
+    [class^="icon-"],
+    [class*=" icon-"] {
+      display: block;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      font-size: $top-font-size;
+      line-height: inherit;
+      *line-height: $height;
+    }
+    .icon-stack-base {
+      font-size: $base-font-size;
+      *line-height: #{$height / $base-font-size}em;
+*/
 
 %en-phone:before {
   content: "\1F4DE";

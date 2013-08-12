@@ -10,7 +10,7 @@
 @import "modular-scale";
 
 // Normalize, Clearfix, & Toolkit
-@import "normalize.scss/_normalize.scss";
+@import "lib/_normalize.scss";
 @import "utilities/clearfix";
 @import "utilities/toolkit";
 @import "lib/lib-all";
@@ -42,3 +42,6 @@ input[type="search"] {
 
 // Print
 @import "utilities/print";
+
+// Shame - For new style snippets that haven't been sorted and commented yet
+@import "shame";
