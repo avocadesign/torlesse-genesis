@@ -9,9 +9,8 @@
 //   http://www.entypo.com/css/entypo-social.woff
 //   http://www.entypo.com/css/entypo-social.ttf
 
-$es-native-size: 40px;
-
 $es-path: "entypo-social" !default;
+$fa-path: 'fontawesome-webfont' !default;
 
 @mixin es-font {
   @font-face {
@@ -24,242 +23,237 @@ $es-path: "entypo-social" !default;
   }
 }
 
-// Uses a given icon.
-//
-//     +es-icon(music)
-//     +es-icon(music, 24px)        /* 24px size
-//     +es-icon(music, 32px, 10px)  /* 24px size, 10px margin right
-//
-// You may specify a color.
-//
-//     +es-icon(music, $color: #333)
-//
-// You may also specify a `$top` value to compensate for any mis-alignment.
-// This nudges the icon by that many pixels from the top.
-//
-//     +es-icon(music, $top: 2px)
-//
-@mixin es-icon($type, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none) {
-  @extend %es-icon;
-  &:before {
-    @if $margin != auto {
-      margin-right: $margin;
-    }
-    @if $size != auto {
-      font-size: $size;
-    }
-    @if $top != auto {
-      position: relative;
-      top: $top;
-    }
-    @if $color != auto {
-      color: $color;
-    }
-    @if $shadow != none {
-      text-shadow: $shadow;
-    }
-  }
-  @include es-glyph($type);
-}
-
-@mixin es-glyph($type) {
-  @extend %es-#{$type};
-}
-
-%es-icon {
-  &:before {
-    line-height: 1em;
-    font-family: "entypo-social";
+@mixin fa-font {
+  @font-face {
+    font-family: "FontAwesome";
+    src: url("#{$fa-path}.eot");
+    src: url("#{$fa-path}.eot?#iefix") format("embedded-opentype"), url("#{$fa-path}.woff") format("woff"), url("#{$fa-path}.ttf") format("truetype"), url("#{$es-path}.svg#FontAwesome") format("svg");
     font-weight: normal;
     font-style: normal;
-    display: inline-block;
-    text-decoration: none;
-    vertical-align: middle;
-    text-rendering: optimizeLegibility !important;
-    -webkit-font-smoothing: antialiased !important;
+    speak: none;
   }
 }
 
-%es-github:before {
-  content: "\F300";
+// List of unicode characters for entypo social icons
+$social-icons: (
+	'github' 				'\F300',
+	'c-github' 				'\F301',
+	'flickr' 				'\F303',
+	'c-flickr' 				'\F304',
+	'vimeo' 				'\F306',
+	'c-vimeo' 				'\F307',
+	'twitter' 				'\EA75',
+	'c-twitter' 			'\F30A',
+	'facebook' 				'\F30C',
+	'c-facebook' 			'\F30D',
+	's-facebook' 			'\F30E',
+	'google-plus' 			'\F30F',
+	'c-google-plus' 		'\F310',
+	'pinterest' 			'\F312',
+	'c-pinterest' 			'\F313',
+	'tumblr' 				'\F315',
+	'c-tumblr' 				'\F316',
+	'linkedin' 				'\F318',
+	'c-linkedin' 			'\F319',
+	'dribbble' 				'\F31B',
+	'c-dribbble' 			'\F31C',
+	'stumbleupon' 			'\F31E',
+	'c-stumbleupon' 		'\F31F',
+	'lastfm' 				'\F321',
+	'c-lastfm' 				'\F322',
+	'rdio' 					'\F324',
+	'c-rdio' 				'\F325',
+    'spotify' 				'\F327',
+    'c-spotify' 			'\F328',
+    'qq' 					'\F32A',
+	'instagram' 			'\F32D',
+	'dropbox' 				'\F330',
+	'evernote' 				'\F333',
+	'flattr' 				'\F336',
+	'skype' 				'\F339',
+	'c-skype' 				'\F33A',
+	'renren' 				'\F33C',
+	'sina-weibo' 			'\F33F',
+	'paypal' 				'\F342',
+	'picasa' 				'\F345',
+	'soundcloud' 			'\F348',
+	'mixi' 					'\F34B',
+	'behance' 				'\F34E',
+	'google-circles' 		'\F351',
+	'vk' 					'\F354',
+    'smashing' 				'\F357'
+);
+
+// List of unicode characters for entypo social icons
+$fontawesome-icons: (
+	'facebook-sign'					'\F082',
+	'youtube'						'\F167',
+	'youtube-sign'					'\F166'
+);
+
+// Function to match name to unicode character
+@function match($haystack, $needle) {
+    @each $item in $haystack {
+        $index: index($item, $needle);
+        @if $index { 
+            $return: if($index == 1, 2, $index);
+            @return nth($item, $return); 
+        }
+    }
+    @return false;
 }
 
-%es-c-github:before {
-  content: "\F301";
+/*
+* 	Main Icon mixin
+*
+* 	Based on http://jaydenseric.com/blog/fun-with-sass-and-font-icons 
+*
+*	e.g. 
+*	@include icon('phone', 'before', true, $large, $top:-3px, $margin:5px);
+* 	@include icon('phone', 'before', true, $large, $top:-3px, $margin:5px) {
+*		color: black;
+* 	}
+*/
+@mixin social-icon($social-icon: false, $position: 'before', $styles: true, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none) {
+    // Either a :before or :after pseudo-element, defaulting to :before
+    &:#{$position} {
+    	
+    	
+        @if $social-icon {
+             // Icon has been specified
+            content: match($social-icons, $social-icon);
+        }
+        
+		@if $styles {
+			// Supportive icon styles have been specified
+			position: relative;
+			display: inline-block;
+			width: auto;
+			text-decoration: none;
+			//vertical-align: middle;
+			text-rendering: optimizeLegibility !important;
+			-webkit-font-smoothing: antialiased !important;
+			-moz-osx-font-smoothing: grayscale;
+			speak: none;
+            text-transform: none;
+            
+            line-height: normal;
+            font: {
+                style: normal;
+                variant: normal;
+                weight: normal;
+                family: "entypo-social";
+                size: $large;
+                
+                @if $size != auto {
+					size: $size;
+				}
+
+            }
+            
+            @if $margin != auto {
+            	@if $position == 'before' {
+	            	margin-right: $margin;
+            	} @else if $position == 'after'{
+	            	margin-left: $margin;
+            	}
+			   
+		    }
+            
+            @if $top != auto {
+		      position: relative;
+		      top: $top;
+		    }
+		    
+		    @if $color != auto {
+		      color: $color;
+		    }
+		    
+		    @if $shadow != none {
+		      text-shadow: $shadow;
+		    }
+            
+            
+        }
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+     
+    }
 }
 
-%es-flickr:before {
-  content: "\F303";
-}
+/*
+* 	Main Icon mixin
+*
+* 	Based on http://jaydenseric.com/blog/fun-with-sass-and-font-icons 
+*
+*	e.g. 
+*	@include icon('phone', 'before', true, $large, $top:-3px, $margin:5px);
+* 	@include icon('phone', 'before', true, $large, $top:-3px, $margin:5px) {
+*		color: black;
+* 	}
+*/
+@mixin fontawesome-icon($fontawesome-icon: false, $position: 'before', $styles: true, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none) {
+    // Either a :before or :after pseudo-element, defaulting to :before
+    &:#{$position} {
+    	
+    	
+        @if $fontawesome-icon {
+             // Icon has been specified
+            content: match($fontawesome-icons, $fontawesome-icon);
+        }
+        
+		@if $styles {
+			// Supportive icon styles have been specified
+			position: relative;
+			display: inline-block;
+			width: auto;
+			text-decoration: none;
+			//vertical-align: middle;
+			text-rendering: optimizeLegibility !important;
+			-webkit-font-smoothing: antialiased !important;
+			-moz-osx-font-smoothing: grayscale;
+			speak: none;
+            text-transform: none;
+            
+            line-height: normal;
+            font: {
+                style: normal;
+                variant: normal;
+                weight: normal;
+                family: "FontAwesome";
+                
+                @if $size != auto {
+					size: $size;
+				}
 
-%es-c-flickr:before {
-  content: "\F304";
-}
-
-%es-vimeo:before {
-  content: "\F306";
-}
-
-%es-c-vimeo:before {
-  content: "\F307";
-}
-
-%es-twitter:before {
-  content: "\F309";
-}
-
-%es-c-twitter:before {
-  content: "\F30A";
-}
-
-%es-facebook:before {
-  content: "\F30C";
-}
-
-%es-c-facebook:before {
-  content: "\F30D";
-}
-
-%es-s-facebook:before {
-  content: "\F30E";
-}
-
-%es-google-plus:before {
-  content: "\F30F";
-}
-
-%es-c-google-plus:before {
-  content: "\F310";
-}
-
-%es-pinterest:before {
-  content: "\F312";
-}
-
-%es-c-pinterest:before {
-  content: "\F313";
-}
-
-%es-tumblr:before {
-  content: "\F315";
-}
-
-%es-c-tumblr:before {
-  content: "\F316";
-}
-
-%es-linkedin:before {
-  content: "\F318";
-}
-
-%es-c-linkedin:before {
-  content: "\F319";
-}
-
-%es-dribbble:before {
-  content: "\F31B";
-}
-
-%es-c-dribbble:before {
-  content: "\F31C";
-}
-
-%es-stumbleupon:before {
-  content: "\F31E";
-}
-
-%es-c-stumbleupon:before {
-  content: "\F31F";
-}
-
-%es-lastfm:before {
-  content: "\F321";
-}
-
-%es-c-lastfm:before {
-  content: "\F322";
-}
-
-%es-rdio:before {
-  content: "\F324";
-}
-
-%es-c-rdio:before {
-  content: "\F325";
-}
-
-%es-spotify:before {
-  content: "\F327";
-}
-
-%es-c-spotify:before {
-  content: "\F328";
-}
-
-%es-qq:before {
-  content: "\F32A";
-}
-
-%es-instagram:before {
-  content: "\F32D";
-}
-
-%es-dropbox:before {
-  content: "\F330";
-}
-
-%es-evernote:before {
-  content: "\F333";
-}
-
-%es-flattr:before {
-  content: "\F336";
-}
-
-%es-skype:before {
-  content: "\F339";
-}
-
-%es-c-skype:before {
-  content: "\F33A";
-}
-
-%es-renren:before {
-  content: "\F33C";
-}
-
-%es-sina-weibo:before {
-  content: "\F33F";
-}
-
-%es-paypal:before {
-  content: "\F342";
-}
-
-%es-picasa:before {
-  content: "\F345";
-}
-
-%es-soundcloud:before {
-  content: "\F348";
-}
-
-%es-mixi:before {
-  content: "\F34B";
-}
-
-%es-behance:before {
-  content: "\F34E";
-}
-
-%es-google-circles:before {
-  content: "\F351";
-}
-
-%es-vk:before {
-  content: "\F354";
-}
-
-%es-smashing:before {
-  content: "\F357";
+            }
+            
+            @if $margin != auto {
+            	@if $position == 'before' {
+	            	margin-right: $margin;
+            	} @else if $position == 'after'{
+	            	margin-left: $margin;
+            	}
+			   
+		    }
+            
+            @if $top != auto {
+		      position: relative;
+		      top: $top;
+		    }
+		    
+		    @if $color != auto {
+		      color: $color;
+		    }
+		    
+		    @if $shadow != none {
+		      text-shadow: $shadow;
+		    }
+            
+            
+        }
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+     
+    }
 }

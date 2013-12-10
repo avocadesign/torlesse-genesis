@@ -84,7 +84,7 @@
 	
 	.menu-parent-item > a {
 		
-		@include en-icon(chevron-down, 2rem, $top: -$base-font-size*0.4);
+		@include icon('down-open-mini', 'before', true, $large, $top:-3px, $margin:5px);
 
 		&:before {
 			float: right;
@@ -93,7 +93,7 @@
 		}
 		
 		a {
-			@include en-icon(chevron-down, 2rem, $top: -$base-font-size*0.4);
+			@include icon('down-open-mini', 'before', true, $large, $top:-3px, $margin:5px);
 		}
 		
 		@include breakpoint($brother-bear) {
@@ -105,7 +105,7 @@
 	
 	.sub-menu .menu-parent-item > a {
 		
-		@include en-icon(chevron-right, 2rem, $top: -$base-font-size*0.4);
+		@include icon('right-open-mini', 'before', true, $large, $top:-3px, $margin:5px);
 	}
 	
 	.sub-menu {
@@ -206,7 +206,7 @@
 		}
 		
 		input[type="submit"] {
-			@include en-icon(search);
+			@include icon('search', 'before', true, $large, $top:-3px, $margin:5px);
 			border: 0;
 			background: transparent;
 			display: inline-block;
@@ -231,7 +231,7 @@
 }
 
 a#nav-toggle {
-	@include en-icon(list, $margin: 0.168*2em,  $top: -2px);
+	@include icon('list', 'before', true, $large, $top:-3px, $margin:5px);
 }
 
 /*! responsive-nav.js v1.0.16 by @viljamis */
