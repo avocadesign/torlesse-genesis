@@ -112,11 +112,48 @@ add_filter( 'tiny_mce_before_init', 'torlesse_tiny_mce_before_init' );
  */
 function torlesse_tiny_mce_before_init( $options ) {
 
-	$options['wordpress_adv_hidden'] = false;										// Shows the 'kitchen sink' by default
-	$options['theme_advanced_blockformats'] = 'p,h2,h3,h4,blockquote';				// Restrict the Formats available in TinyMCE. Currently excluded: h1,h5,h6,address,pre
+	//$options['wordpress_adv_hidden'] = false;										// Shows the 'kitchen sink' by default
+	$settings['theme_advanced_blockformats'] = 'p,h2,h3,h4,blockquote';				// Restrict the Formats available in TinyMCE. Currently excluded: h1,h5,h6,address,pre
 	return $options;
 
 }
+
+/*
+ * Tiny MCE tweaks
+ *
+ * Adding format button and adding formats
+ */
+
+// Add Formats Dropdown Menu To MCE
+if ( ! function_exists( 'torlesse_style_select' ) ) {
+	function torlesse_style_select( $buttons ) {
+		array_push( $buttons, 'styleselect' );
+		return $buttons;
+	}
+}
+add_filter( 'mce_buttons', 'torlesse_style_select' );
+
+// Add new styles to the TinyMCE "formats" menu dropdown
+if ( ! function_exists( 'torlesse_styles_dropdown' ) ) {
+	
+	function torlesse_styles_dropdown( $init ) {
+	    $init['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Blockquote=blockquote;';
+	
+	    $style_formats = array (
+	        array( 'title' => 'Lead Paragraph', 'selector' => 'p', 'classes' => 'lead' ),
+	        array( 'title' => 'Button Link', 'selector' => 'a', 'classes' => 'button' )
+	    );
+	    
+	    // Merge old & new styles
+		$settings['style_formats_merge'] = true;
+	
+	    $init['style_formats'] = json_encode( $style_formats );
+	
+	    $init['style_formats_merge'] = false;
+	    return $init;
+	}
+}
+add_filter( 'tiny_mce_before_init', 'torlesse_styles_dropdown' );
 
 add_filter( 'user_contactmethods', 'torlesse_user_contactmethods' );
 /**
