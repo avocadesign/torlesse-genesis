@@ -16,18 +16,25 @@ $genesis-footer-areas: 3; 				//Genesis support for the number of footer widgets
 		
 		@include breakpoint($mama-bear-and-up) {
 			// $Mama-bear-total-columns is set in _layout.scss
-			@include span-columns($mama-bear-total-cols / $genesis-footer-areas,$mama-bear-total-cols); 
-			@include nth-omega(#{$genesis-footer-areas}n);
+			@include span($mama-bear-total-cols / $genesis-footer-areas of $mama-bear-total-cols); 
+			
+			&:nth-child(#{$genesis-footer-areas}) {
+				@include omega;
+			}
 		}
 		
 		@include breakpoint($papa-bear) {
 			// $Papa-bear-total-columns is set in _layout.scss
-			@include span-columns($papa-bear-total-cols / $genesis-footer-areas,$papa-bear-total-cols); 
-			@include nth-omega(#{$genesis-footer-areas}n);
+			@include span($papa-bear-total-cols / $genesis-footer-areas of $papa-bear-total-cols); 
+			
+			&:nth-child(#{$genesis-footer-areas}) {
+				@include omega;
+			}
 		}
 		
 		
 	}
+
 
 	a {
 

@@ -1,12 +1,18 @@
 /*********************
 Grid Settings - Mobile First SUSY Grid
 *********************/
-
-
-$total-columns  : 7;
-$column-width   : 4.236em;
+$column-width   : 4em;
 $gutter-width   : 1.618em;
 $grid-padding   : $gutter-width;
+
+$susy: (
+  // the basics
+  columns: 7,
+  gutters: $gutter-width / $column-width,
+  column-width: $column-width,
+  
+);
+
 
 // negative margins left ad right the width of the SUSY grid gutter
 %remove-outer-gutter {
@@ -56,17 +62,17 @@ body {
 		
 		@include container;
 		//padding: 0;										//removes the gutter width padding at the edge of the container
-		//@include susy-grid-background; 					//uncomment to see grid for mobile
+		//@include show-grid(show-columns);						//uncomment to see grid for mobile
 		
 		@include breakpoint($mama-bear-and-up) {
 			$total-columns: $mama-bear-total-cols;
-			@include set-container-width($mama-bear-total-cols);
+			max-width: container($mama-bear-total-cols);
 			//@include susy-grid-background; 					//uncomment to see grid for Mama Bear
 		}
 		
 		@include breakpoint($papa-bear) {
 			$total-columns: $papa-bear-total-cols;
-			@include set-container-width($papa-bear-total-cols);
+			max-width: container($papa-bear-total-cols);
 			//@include susy-grid-background; 					//uncomment to see grid for Papa Bear
 		}
 	}
@@ -88,17 +94,17 @@ body {
 		
 		@include container;
 		//padding: 0;										//removes the gutter width padding at the edge of the container
-		//@include susy-grid-background; 					//uncomment to see grid for mobile
+		//@include show-grid(show-columns);						//uncomment to see grid for mobile
 		
 		@include breakpoint($mama-bear-and-up) {
 			$total-columns: $mama-bear-total-cols;
-			@include set-container-width($mama-bear-total-cols);
+			max-width: container($mama-bear-total-cols);
 			//@include susy-grid-background; 					//uncomment to see grid for Mama Bear
 		}
 		
 		@include breakpoint($papa-bear) {
 			$total-columns: $papa-bear-total-cols;
-			@include set-container-width($papa-bear-total-cols);
+			max-width: container($papa-bear-total-cols);
 			//@include susy-grid-background; 					//uncomment to see grid for Papa Bear
 		}
 	
@@ -128,19 +134,19 @@ body {
 	@include breakpoint($mama-bear-and-up) {
 		
 		.content-sidebar-wrap {
-			@include span-columns($mama-bear-content-cols+$mama-bear-sidebar-primary-cols,$mama-bear-total-cols);
+			@include span($mama-bear-content-cols+$mama-bear-sidebar-primary-cols of $mama-bear-total-cols);
 		}
 		
 		.content {
-			@include span-columns($mama-bear-content-cols,$mama-bear-total-cols);
+			@include span($mama-bear-content-cols of $mama-bear-total-cols);
 		}
 		
 		.sidebar-primary {
-			@include span-columns($mama-bear-sidebar-primary-cols,$mama-bear-total-cols);
+			@include span($mama-bear-sidebar-primary-cols of $mama-bear-total-cols);
 		}
 		
 		.sidebar-secondary {
-			@include span-columns($mama-bear-sidebar-secondary-cols,$mama-bear-total-cols);
+			@include span($mama-bear-sidebar-secondary-cols of $mama-bear-total-cols);
 		}
 	}
 	
@@ -148,19 +154,19 @@ body {
 	@include breakpoint($papa-bear) {
 		
 		.content-sidebar-wrap {
-			@include span-columns($papa-bear-content-cols+$papa-bear-sidebar-primary-cols,$papa-bear-total-cols);
+			@include span($papa-bear-content-cols+$papa-bear-sidebar-primary-cols of $papa-bear-total-cols);
 		}
 		
 		.content {
-			@include span-columns($papa-bear-content-cols,$papa-bear-total-cols - $papa-bear-sidebar-secondary-cols);
+			@include span($papa-bear-content-cols of $papa-bear-total-cols - $papa-bear-sidebar-secondary-cols);
 		}
 		
 		.sidebar-primary {
-			@include span-columns($papa-bear-sidebar-primary-cols,$papa-bear-total-cols - $papa-bear-sidebar-secondary-cols);
+			@include span($papa-bear-sidebar-primary-cols of $papa-bear-total-cols - $papa-bear-sidebar-secondary-cols);
 		}
 		
 		.sidebar-secondary {
-			@include span-columns($papa-bear-sidebar-secondary-cols,$papa-bear-total-cols);
+			@include span($papa-bear-sidebar-secondary-cols of $papa-bear-total-cols);
 		}
 	}
 
@@ -177,11 +183,11 @@ body {
 	// Mama Bear Breakpoint
 	@include breakpoint($mama-bear-and-up) {
 		.content {
-			@include span-columns($mama-bear-content-cols,$mama-bear-total-cols);
+			@include span($mama-bear-content-cols of $mama-bear-total-cols);
 		}
 		
 		.sidebar-primary {
-			@include span-columns($mama-bear-sidebar-primary-cols,$mama-bear-total-cols);
+			@include span($mama-bear-sidebar-primary-cols of $mama-bear-total-cols);
 		}
 	}
 	
@@ -189,11 +195,11 @@ body {
 	@include breakpoint($papa-bear) {
 	
 		.content {
-			@include span-columns($papa-bear-total-cols - $papa-bear-single-sidebar-cols,$papa-bear-total-cols);
+			@include span($papa-bear-total-cols - $papa-bear-single-sidebar-cols of $papa-bear-total-cols);
 		}
 		
 		.sidebar-primary {
-			@include span-columns($papa-bear-single-sidebar-cols,$papa-bear-total-cols);
+			@include span($papa-bear-single-sidebar-cols of $papa-bear-total-cols);
 		}
 	}
 }
@@ -218,5 +224,6 @@ body {
 		@include omega;
 	}
 }
+
 
 // padding
